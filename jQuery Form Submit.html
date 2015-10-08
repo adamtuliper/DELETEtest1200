@@ -1,0 +1,32 @@
+<!doctype html>
+
+<body>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<form action="/Edit/Custom" method="POST">
+<input type="text" name="Adam" id="name">
+<input type="submit" id="save" value="Save">
+</form>
+<script>
+
+asasasasasaa
+
+$(function() {
+  $('form.my_form').submit(function(event) {
+    var form = $(this);
+    $.ajax({
+      type: form.attr('method'),
+      url: form.attr('action'),
+      data: form.serialize()
+    }).done(function() {
+      // Optionally alert the user of success here...
+    }).fail(function() {
+      // Optionally alert the user of an error here...
+    });
+    event.preventDefault(); // Prevent the form from submitting via the browser.
+  });
+});
+
+</script>
+
+</body>
