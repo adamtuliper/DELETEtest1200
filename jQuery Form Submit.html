@@ -1,19 +1,59 @@
 <!doctype html>
-
+<head>
+  <script src="http://ajax.aspnetcdn.com/ajax/mobileservices/MobileServices.Web-1.2.7.min.js"></script>
+</head>
 <body>
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 
-<form action="/Edit/Custom" method="POST">
+<form id="CustomerForm" action="/Edit/Custom" method="POST">
 <input type="text" name="Adam" id="name">
 <input type="submit" id="save" value="Save">
 </form>
 <script>
+  
+    
+var client = new WindowsAzure.MobileServiceClient(
+    "https://superstar.azure-mobile.net/",
+    "qyNddoUCfnDktfiydKDlHybEdSAqjW16");
+    
+$(document).ready(function(){
 
-asasasasasaa
+
+console.log('loaded and ready to go');
+});
 
 $(function() {
-  $('form.my_form').submit(function(event) {
+  
+  
+  $('#CustomerForm').submit(function(event) {
+    
+    
     var form = $(this);
+    
+ 
+    var item = { text: $("#name").val() };
+    console.log(item);
+    
+client.getTable("HackathonData").insert({
+   SomeData: "test",
+   complete: false
+})
+   .then(function (results) {
+    alert(JSON.stringify(results));
+}, function (error) {
+   alert(JSON.parse(error.request.responseText).error);
+});
+    
+     // client.getTable("Item").insert(item)
+      //             .done(
+      //                 function(){
+      //                   console.log('in then');
+      //                            }, 
+      //                 function(err){
+      //                   console.log('error');
+      //                   });
+    console.log('inserted item');
+    /*
     $.ajax({
       type: form.attr('method'),
       url: form.attr('action'),
@@ -23,6 +63,7 @@ $(function() {
     }).fail(function() {
       // Optionally alert the user of an error here...
     });
+    */
     event.preventDefault(); // Prevent the form from submitting via the browser.
   });
 });
